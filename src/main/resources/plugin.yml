@@ -1,0 +1,9 @@
+name: SeniorTeamTrial
+version: 1.0.0
+main: me.titan.stt.core.STTPlugin
+author: TitanDev
+api-version: 1.18
+depend: []
+commands:
+  region:
+    aliases: [rg]
