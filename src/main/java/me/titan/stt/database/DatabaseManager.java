@@ -91,13 +91,13 @@ public class DatabaseManager {
 	}
 	public void updateMembers(Region rg){
 		MainConfig config = plugin.getMainConfig();
-		String query = "UPDATE " + config.getTable() + " SET members=? WHERE id=?";
+		String query = "DELETE FROM " + config.getTable() + "";//"UPDATE " + config.getTable() + " SET members=? WHERE id=?";
 		try(Connection c = plugin.getMainConfig().getDatabase().getConnection();
 			PreparedStatement st = c.prepareStatement(query)){
 
 			var members = Util.serialize(rg.getMembers());
-			st.setBlob(1,members);
-			st.setString(2,rg.getId());
+			//st.setBlob(1,members);
+			//st.setString(2,rg.getId());
 
 			if(!c.isValid(1)){
 				plugin.getLogger().warning("Unable to connect to database.");

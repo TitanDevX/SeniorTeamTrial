@@ -3,13 +3,10 @@ package me.titan.stt.core;
 import me.titan.stt.commands.RegionCommand;
 import me.titan.stt.config.MainConfig;
 import me.titan.stt.database.DatabaseManager;
+import me.titan.stt.listeners.PlayerListener;
 import me.titan.titaninvs.core.TitanInvAPI;
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.plugin.java.JavaPluginLoader;
-
-import java.io.File;
 
 public class STTPlugin extends JavaPlugin {
 
@@ -33,7 +30,8 @@ public class STTPlugin extends JavaPlugin {
 
 		databaseManager = new DatabaseManager(this);
 
-		System.out.println("Ee " + instance);
+		Bukkit.getPluginManager().registerEvents(new PlayerListener(),this);
+
 		regionManager = new RegionManager();
 
 
@@ -45,14 +43,7 @@ public class STTPlugin extends JavaPlugin {
 		return (STTPlugin) Bukkit.getPluginManager().getPlugin("SeniorTeamTrial");
 	}
 
-	protected STTPlugin(){
-		super();
-	}
 
-	protected STTPlugin(JavaPluginLoader loader, PluginDescriptionFile description, File dataFolder, File file)
-	{
-		super(loader, description, dataFolder, file);
-	}
 	@Override
 	public void onDisable() {
 

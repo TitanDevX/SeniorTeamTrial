@@ -6,9 +6,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 public class RegionManager {
 
@@ -19,7 +20,6 @@ public class RegionManager {
 		Bukkit.getScheduler().runTaskAsynchronously(STTPlugin.instance,() -> {
 			plugin.getDatabaseManager().loadRegions((list) -> {
 				for (Region rg : list) {
-					System.out.println("LOAD " + rg.getId());
 					regions.put(rg.getId(),rg);
 				}
 			});
@@ -27,11 +27,13 @@ public class RegionManager {
 	}
 	public boolean canInteract(Player p, Location loc){
 
-		Stream<Region> stream =  regions.values().stream().filter((rg) -> rg.contains(loc.getWorld(), BlockVector.fromLocation(loc)));
+		//regions.clear();
+		//STTPlugin.getInstance().getDatabaseManager().updateMembers(new Region(null));
+		List<Region> regionsinLoc =  regions.values().stream().filter((rg) -> rg.contains(loc.getWorld(), BlockVector.fromLocation(loc))).collect(Collectors.toList());
 
-		if(stream.findAny().isEmpty()) return true;
+		if(regionsinLoc.isEmpty()) return true;
 
-		return stream.anyMatch((rg) -> rg.getMembers().contains(p.getUniqueId()));
+		return regionsinLoc.stream().anyMatch((rg) -> rg.getMembers().contains(p.getUniqueId()));
 	}
 	public void addRegion(Region rg){
 		regions.put(rg.getId(),rg);

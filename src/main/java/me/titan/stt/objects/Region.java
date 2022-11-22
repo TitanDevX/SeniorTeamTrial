@@ -34,9 +34,9 @@ public class Region implements Iterable<BlockVector> {
 	public long size(){
 		BlockVector min = getMinPoint();
 		BlockVector max = getMaxPoint();
-		long l = max.getX()-min.getX();
-		long h = max.getY()-min.getY();
-		long w = max.getZ()-min.getZ();
+		long l = (max.getX()-min.getX())+1;
+		long h = (max.getY()-min.getY())+1;
+		long w = (max.getZ()-min.getZ())+1;
 		return l*h*w;
 	}
 	public void save(){
@@ -56,6 +56,8 @@ public class Region implements Iterable<BlockVector> {
 			String oldname = this.id;
 			this.id = name;
 
+			STTPlugin.instance.getRegionManager().getRegions().remove(oldname);
+			STTPlugin.instance.getRegionManager().getRegions().put(name,this);
 			STTPlugin.instance.getDatabaseManager().updateName(this,oldname);
 		});
 	}

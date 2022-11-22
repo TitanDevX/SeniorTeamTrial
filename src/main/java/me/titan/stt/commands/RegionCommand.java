@@ -179,6 +179,7 @@ public class RegionCommand implements CommandExecutor {
 
 			Region rg = STTPlugin.instance.getRegionManager().getRegions().get(name);
 
+
 			if(rg == null){
 				Util.tell(s,"&cNo such region exist.");
 				return false;

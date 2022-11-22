@@ -44,7 +44,7 @@ public class RegionMenu extends TitanInv {
 				}
 				String oldName = rg.getId();
 				rg.updateName(str);
-				Util.tell(p,"&aSuccessfully updated name for region from " + oldName + " to " + rg.getId());
+				Util.tell(p,"&aSuccessfully updated name for region from " + oldName + " to " + str);
 			});
 			pc.setCurrentChatInput(ci);
 		}));
@@ -62,7 +62,7 @@ public class RegionMenu extends TitanInv {
 					return;
 				}
 				OfflinePlayer op = Bukkit.getOfflinePlayer(str);
-				if(!op.hasPlayedBefore()){
+				if(!op.isOnline() && !op.hasPlayedBefore()){
 					Util.tell(p,"&cInvalid player, please try again.");
 					return;
 				}
@@ -86,8 +86,8 @@ public class RegionMenu extends TitanInv {
 					Util.tell(p,"&cRegion unwhitelist canceled.");
 					return;
 				}
-				OfflinePlayer op = Bukkit.getOfflinePlayer(str);
-				if(!op.hasPlayedBefore()){
+				OfflinePlayer op = Bukkit.getPlayer(str);
+				if(!op.isOnline() && !op.hasPlayedBefore()){
 					Util.tell(p,"&cInvalid player, please try again.");
 					return;
 				}

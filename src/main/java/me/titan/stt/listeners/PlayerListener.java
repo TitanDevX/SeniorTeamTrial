@@ -46,7 +46,11 @@ public class PlayerListener implements Listener {
 		}
 
 		if(p.hasPermission("region.bypass")) return;
-		if(!regionManager.canInteract(p,p.getLocation())){
+		Location loc = p.getLocation();
+		if(e.getClickedBlock() != null){
+			loc = e.getClickedBlock().getLocation();
+		}
+		if(!regionManager.canInteract(p,loc)){
 			Util.tell(p,"&cYou are not whitelisted in this region.");
 			e.setCancelled(true);
 		}
